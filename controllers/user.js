@@ -78,6 +78,11 @@ exports.login = (req, res, next) => {
         { expiresIn: "1h" }
       );
 
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: true,
+      });
+
       res.status(200).json({
         token: token,
         user: {

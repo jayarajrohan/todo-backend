@@ -2,7 +2,22 @@ const jwt = require("jsonwebtoken");
 const { jwtSecret } = require("../util/jwt-secret");
 
 module.exports = (req, res, next) => {
-  const token = req.headers.cookie;
+  const cookie = req.headers.cookie;
+  let token;
+
+  if (!cookie) {
+    const error = new Error("Not authenticated");
+    error.status = 401;
+    throw error;
+  }
+
+  const cookies = cookie.split(";");
+
+  cookies.forEach((cookie) => {
+    if (cookie.trim().startsWith("token")) {
+      token = cookie.split("=")[1];
+    }
+  });
 
   if (!token) {
     const error = new Error("Not authenticated");
@@ -14,8 +29,9 @@ module.exports = (req, res, next) => {
 
   try {
     decodedToken = jwt.verify(token, jwtSecret);
-  } catch (error) {
-    error.status = 500;
+  } catch {
+    const error = new Error("Not authenticated");
+    error.status = 401;
     throw error;
   }
 

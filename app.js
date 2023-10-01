@@ -15,11 +15,12 @@ app.use(compression());
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, PATCH, DELETE"
   );
+  res.setHeader("Access-Control-Allow-Credentials", true);
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
@@ -38,6 +39,6 @@ app.use((error, req, res) => {
 mongoose
   .connect(process.env.MONGO_DB_CONNECTION_STRING)
   .then(() => {
-    app.listen(process.env.PORT || 3000);
+    app.listen(process.env.PORT || 8080);
   })
   .catch((err) => console.log(err));
