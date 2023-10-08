@@ -103,8 +103,10 @@ exports.login = (req, res, next) => {
 
 exports.logout = (req, res, next) => {
   try {
-    res.clearCookie("token");
-    res.end();
+    req.session.destroy(() => {
+      res.clearCookie("token");
+      res.end();
+    });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
