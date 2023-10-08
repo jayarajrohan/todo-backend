@@ -1,8 +1,7 @@
 {
   "env": {
     "MONGO_DB_CONNECTION_STRING": "mongodb+srv://rohan2:C6hS7l6sgI3WmY77@todo.d0uuu3r.mongodb.net/todo?retryWrites=true&w=majority",
-    "COOKIE_SETTINGS": {
-      "httpOnly": true
-    }
+    "COOKIE_SETTINGS_HTTP_ONLY": true,
+    "COOKIE_SETTINGS_SECURE": false
   }
 }

@@ -78,7 +78,10 @@ exports.login = (req, res, next) => {
         { expiresIn: "1h" }
       );
 
-      res.cookie("token", token, process.env.COOKIE_SETTINGS);
+      res.cookie("token", token, {
+        httpOnly: process.env.COOKIE_SETTINGS_HTTP_ONLY,
+        secure: process.env.COOKIE_SETTINGS_SECURE,
+      });
 
       res.status(200).json({
         token: token,
