@@ -78,10 +78,7 @@ exports.login = (req, res, next) => {
         { expiresIn: "1h" }
       );
 
-      res.cookie("token", token, {
-        httpOnly: true,
-        secure: true,
-      });
+      res.cookie("token", token, process.env.COOKIE_SETTINGS);
 
       res.status(200).json({
         token: token,
@@ -98,4 +95,16 @@ exports.login = (req, res, next) => {
       }
       next(error);
     });
+};
+
+exports.logout = (req, res, next) => {
+  try {
+    res.clearCookie("token");
+    res.status(200).json({ message: "User logged out successfully" });
+  } catch (error) {
+    if (!error.statusCode) {
+      error.statusCode = 500;
+    }
+    next(error);
+  }
 };

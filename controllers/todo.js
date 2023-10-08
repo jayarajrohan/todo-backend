@@ -38,8 +38,6 @@ exports.addTodo = (req, res, next) => {
       }
       next(error);
     });
-
-  res.send(data);
 };
 
 exports.updateTodo = (req, res, next) => {

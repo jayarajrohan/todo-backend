@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
 
   if (!cookie) {
     const error = new Error("Not authenticated");
-    error.status = 401;
+    error.statusCode = 401;
     throw error;
   }
 
@@ -21,7 +21,7 @@ module.exports = (req, res, next) => {
 
   if (!token) {
     const error = new Error("Not authenticated");
-    error.status = 401;
+    error.statusCode = 401;
     throw error;
   }
 
@@ -31,13 +31,13 @@ module.exports = (req, res, next) => {
     decodedToken = jwt.verify(token, jwtSecret);
   } catch {
     const error = new Error("Not authenticated");
-    error.status = 401;
+    error.statusCode = 401;
     throw error;
   }
 
   if (!decodedToken) {
     const error = new Error("Not authenticated");
-    error.status = 401;
+    error.statusCode = 401;
     throw error;
   }
 

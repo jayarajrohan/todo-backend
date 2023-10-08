@@ -7,6 +7,7 @@ const {
   passwordRegex,
 } = require("../util/regex");
 const User = require("../models/user");
+const isAuth = require("../middleware/is-auth");
 
 const router = express.Router();
 
@@ -43,5 +44,7 @@ router.post(
   body("password").trim().isLength({ min: 6 }).matches(passwordRegex),
   userControllers.login
 );
+
+router.get("/logout", isAuth, userControllers.logout);
 
 module.exports = router;

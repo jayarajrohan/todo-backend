@@ -10,7 +10,7 @@ router.post(
   "/add",
   isAuth,
   body("content").trim().notEmpty().escape(),
-  body("date").trim().isDate(),
+  body("date").trim().isISO8601(),
   body("isCompleted").isBoolean({ strict: true }),
   todoControllers.addTodo
 );
@@ -19,7 +19,7 @@ router.put(
   "/update/:todoId",
   isAuth,
   body("content").trim().notEmpty().escape(),
-  body("date").trim().isDate(),
+  body("date").trim().isISO8601(),
   body("isCompleted").isBoolean({ strict: true }),
   todoControllers.updateTodo
 );
