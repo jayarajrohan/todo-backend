@@ -80,7 +80,7 @@ exports.login = (req, res, next) => {
 
       res.cookie("token", token, {
         httpOnly: process.env.COOKIE_SETTINGS_HTTP_ONLY === "true",
-        secure: process.env.COOKIE_SETTINGS_SECURE === "true",
+        // secure: process.env.COOKIE_SETTINGS_SECURE === "true",
         path: "/",
       });
 
