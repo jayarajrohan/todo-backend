@@ -103,10 +103,13 @@ exports.login = (req, res, next) => {
 
 exports.logout = (req, res, next) => {
   try {
-    req.session.destroy(() => {
-      res.clearCookie("token");
-      res.end();
+    res.clearCookie("token", {
+      httpOnly: process.env.COOKIE_SETTINGS_HTTP_ONLY === "true",
+      secure: process.env.COOKIE_SETTINGS_SECURE === "true",
+      sameSite: "none",
     });
+
+    res.status(200).json({ message: "Logged out successfully" });
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
