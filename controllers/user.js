@@ -104,7 +104,7 @@ exports.login = (req, res, next) => {
 exports.logout = (req, res, next) => {
   try {
     res.clearCookie("token");
-    res.status(200).json({ message: "User logged out successfully" });
+    res.status(200).end();
   } catch (error) {
     if (!error.statusCode) {
       error.statusCode = 500;
